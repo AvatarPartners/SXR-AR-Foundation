@@ -1,8 +1,8 @@
 {
   "name": "com.avatarpartners.sxr_arf",
-  "version": "1.3.1",
+  "version": "1.3.5",
   "displayName": "SimplifyXR AR Foundation",
-  "description": "This is a Test package",
+  "description": "This is The Ar Foundation Package for SimplifyXR",
   "unity": "2019.3",
   "unityRelease": "2f1",
   "author": {
