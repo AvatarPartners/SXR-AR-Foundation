@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using SimplifyXR;
 #if USING_ARFOUNDATION
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
@@ -47,7 +48,12 @@ namespace SimplifyXR
             get { return m_DefaultTexture; }
             set { m_DefaultTexture = value; }
         }
-
+        /// <summary>
+        /// The object to move with the image target
+        /// </summary>
+#if UNITY_EDITOR
+        [Tooltip("The object to move with the image target")]
+#endif
         public GameObject contentHolder;
         #endregion
 
@@ -55,12 +61,12 @@ namespace SimplifyXR
         #region Private Fields
         //Stores the previous state of the target so that it can be compared against
         TrackingState previousState;
+
+        //AR Tracked Image Manager instance ref
+        ARTrackedImageManager m_TrackedImageManager;
         #endregion
 
         #region Monobehaviours
-        //AR Tracked Image Manager instance ref
-        ARTrackedImageManager m_TrackedImageManager;
-
         //Set the target manager behavior
         protected void Awake()
         {
@@ -79,11 +85,13 @@ namespace SimplifyXR
 
             SimplifyXRDebug.SimplifyXRLog(SimplifyXRDebug.Type.AuthorDebug, "[TARGET] New target {0} being tracked", SimplifyXRDebug.Args(GetTargetName()));
 
-            // //Determine if the user would like to start tracking immediately or not
-            // if (StartTrackingImmediately)
-            // {
-            //     StartTracking();
-            // }
+            //Determine if the user would like to start tracking immediately or not
+            if (StartTrackingImmediately)
+            {
+                StartTracking();
+            }
+
+            CallPoseLost();
         }
         //Event subscription
         protected void OnEnable()
@@ -165,22 +173,16 @@ namespace SimplifyXR
         /// </summary>
         public void StartTracking()
         {
-            // if (!string.IsNullOrEmpty(FileNameOfTracker))
-            //     vLWorker.StartTracking(FileNameOfTracker);
-            // else
-            //     SimplifyXRDebug.SimplifyXRLog(SimplifyXRDebug.Type.AuthorError, "[TARGET] The File name on the VisionLibAdapter, {0}, is empty. Please specify which object to start tracking.", SimplifyXRDebug.Args(GetTargetName()));
+            m_TrackedImageManager.enabled = true;
         }
         /// <summary>
         /// Stops the tracking on any tracked object
         /// </summary>
         public void StopTracking()
         {
-            // vLWorker.StopTracking();
+            m_TrackedImageManager.enabled = false;
         }
         #endregion
-
-        // #else 
-
 #endif
     }
 }

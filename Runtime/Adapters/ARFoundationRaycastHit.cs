@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using SimplifyXR;
 #if USING_ARFOUNDATION
 using UnityEngine.XR.ARFoundation;
 

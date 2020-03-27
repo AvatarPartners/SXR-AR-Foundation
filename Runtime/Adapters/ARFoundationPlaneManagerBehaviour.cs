@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using SimplifyXR;
 
 namespace SimplifyXR
 {
@@ -7,9 +8,9 @@ namespace SimplifyXR
     /// <summary>
     /// Standard VisionLib Behavior
     /// </summary>
-    public class ARFoundationImageTargetManagerBehaviour : BaseActiveObjectManagerBehaviour<SimplifyXRTargetAdapter>
+    public class ARFoundationPlaneManagerBehaviour : BaseActiveObjectManagerBehaviour<SimplifyXRTargetAdapter>
     {
-    #region Overrides
+        #region Overrides
         //Tracks the object
         public override void TrackPreloadedObject(SimplifyXRTargetAdapter theObject)
         {
@@ -28,9 +29,9 @@ namespace SimplifyXR
                 //see of the object has already been loaded
                 if (myActiveObject.GetAllObjects().Contains(toHide))
                 {
-                    ARFoundationAdapter adapter = toHide as ARFoundationAdapter;
+                    ARFoundationAdapterPlanes adapter = toHide as ARFoundationAdapterPlanes;
                     //TODO stop the tracker
-                    // adapter.StopTracking();
+                    adapter.StopTracking();
                     SimplifyXRDebug.SimplifyXRLog(SimplifyXRDebug.Type.DeveloperDebug, "Stoping Tracking the passed SimplifyXRTarget {0}.", SimplifyXRDebug.Args(toHide.GetTargetName()));
                 }
                 else
@@ -62,7 +63,7 @@ namespace SimplifyXR
                 {
                     myActiveObject.TrackObject(toShow);
                 }
-                ARFoundationAdapter adapter = toShow as ARFoundationAdapter;
+                ARFoundationAdapterPlanes adapter = toShow as ARFoundationAdapterPlanes;
                 //TODO Start the tracking
                 adapter.StartTracking();
                 SimplifyXRDebug.SimplifyXRLog(SimplifyXRDebug.Type.DeveloperDebug, "Tracking the passed SimplifyXRTarget {0}.", SimplifyXRDebug.Args(toShow.GetTargetName()));
@@ -82,7 +83,7 @@ namespace SimplifyXR
         {
             return myActiveObject.GetAllObjects().Contains(GetObjectFromString(nameOfObject));
         }
-    #endregion
+        #endregion
     }
 #endif
 }

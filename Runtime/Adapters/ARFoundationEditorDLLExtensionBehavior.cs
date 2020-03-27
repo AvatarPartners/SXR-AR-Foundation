@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using SimplifyXR;
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SimplifyXR.Runtime")]
 namespace SimplifyXR
 {
